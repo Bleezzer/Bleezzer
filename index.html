@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>N2O Deutschland — Lachgas Großhandel</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ─── BASE ─── */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Inter','Segoe UI',sans-serif;
+  background:#090c18;
+  color:#fff;
+  overflow-x:hidden;
+  cursor:none;
+  -webkit-font-smoothing:antialiased;
+}
+a{text-decoration:none;color:inherit;cursor:none;}
+button{cursor:none;}
+img{display:block;}
+
+/* ─── CUSTOM CURSOR ─── */
+#cur{position:fixed;z-index:9999;pointer-events:none;width:9px;height:9px;border-radius:50%;background:#00b4d4;box-shadow:0 0 10px rgba(0,180,212,.7);transform:translate(-50%,-50%);transition:width .15s,height .15s,background .15s;}
+#ring{position:fixed;z-index:9998;pointer-events:none;width:32px;height:32px;border-radius:50%;border:1.5px solid rgba(0,180,212,.4);transform:translate(-50%,-50%);transition:width .25s,height .25s,border-color .2s;}
+.tr{position:fixed;border-radius:50%;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);background:#00b4d4;}
+body.hl #cur{width:7px;height:7px;background:#fff;box-shadow:0 0 12px rgba(255,255,255,.5);}
+body.hl #ring{width:46px;height:46px;border-color:rgba(255,255,255,.4);}
+/* Hide custom cursor on touch devices */
+body.touch #cur,body.touch #ring,body.touch .tr{display:none!important;}
+body.touch{cursor:auto!important;}body.touch a,body.touch button{cursor:pointer!important;}
+
+/* ─── TOP BAR ─── */
+.topbar{
+  background:#060910;
+  border-bottom:1px solid rgba(255,255,255,.07);
+  text-align:center;padding:.42rem 1rem;
+  font-size:.78rem;color:#666;
+}
+.topbar a{color:#00b4d4;font-weight:600;}
+.topbar a:hover{text-decoration:underline;}
+
+/* ─── NAV ─── */
+.nav{
+  position:sticky;top:0;z-index:200;
+  background:rgba(9,12,24,.88);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(255,255,255,.07);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 4%;height:70px;
+  transition:background .3s;
+}
+.nav.solid{background:#090c18;}
+/* logo */
+.nav-logo{display:flex;align-items:center;gap:.55rem;}
+.nav-logo svg{width:28px;height:28px;flex-shrink:0;}
+.nav-logo-txt{font-size:1.1rem;font-weight:800;color:#00b4d4;line-height:1.15;}
+.nav-logo-txt span{display:block;font-size:.62rem;font-weight:500;color:#00b4d4;letter-spacing:.04em;}
+/* links */
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{font-size:.83rem;font-weight:500;color:#aaa;letter-spacing:.02em;transition:color .2s;padding-bottom:3px;position:relative;}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1.5px;background:#00b4d4;transform:scaleX(0);transform-origin:left;transition:transform .28s;}
+.nav-links a:hover,.nav-links a.active{color:#fff;}
+.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1);}
+/* right side */
+.nav-right{display:flex;align-items:center;gap:.55rem;}
+.lang-row{display:flex;align-items:center;}
+.lang-select-wrap{position:relative;display:flex;align-items:center;}
+.lang-select{
+  appearance:none;-webkit-appearance:none;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.15);
+  color:#ccc;
+  padding:.22rem 1.6rem .22rem .55rem;
+  border-radius:5px;
+  font-size:.68rem;font-weight:600;letter-spacing:.04em;
+  cursor:pointer;outline:none;
+  transition:background .2s,border-color .2s;
+}
+.lang-select:hover{background:rgba(255,255,255,.13);border-color:rgba(255,255,255,.3);}
+.lang-select option{background:#1a1a2e;color:#eee;}
+.lang-caret{position:absolute;right:.45rem;pointer-events:none;width:8px;color:#aaa;}
+.lb:not(.on):hover{color:#fff;border-color:rgba(255,255,255,.3);}
+.wa-btn{
+  background:#00b4d4;color:#090c18;font-size:.76rem;font-weight:700;
+  letter-spacing:.04em;padding:.38rem .95rem;border-radius:4px;border:none;
+  display:flex;align-items:center;gap:.38rem;
+  transition:filter .2s,transform .15s;
+}
+.wa-btn:hover{filter:brightness(1.1);transform:translateY(-1px);}
+
+/* ─── HERO ─── */
+.hero{
+  position:relative;
+  min-height:calc(100vh - 112px); /* topbar + nav */
+  overflow:hidden;
+  display:flex;align-items:center;
+}
+
+/* background group image — fills right side */
+.hero-bg-img{
+  position:absolute;
+  top:0;right:0;
+  width:68%;
+  height:100%;
+  z-index:0;
+}
+.hero-bg-img img{
+  width:100%;height:100%;
+  object-fit:cover;
+  object-position:left center;
+  /* soft vignette mask on all 4 edges */
+  -webkit-mask-image:
+    linear-gradient(to right,  transparent 0%,  black 18%, black 82%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%,  black 10%, black 88%, transparent 100%);
+  -webkit-mask-composite: destination-in;
+  mask-image:
+    linear-gradient(to right,  transparent 0%,  black 18%, black 82%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%,  black 10%, black 88%, transparent 100%);
+  mask-composite: intersect;
+  /* also reduce overall opacity so image blends into dark bg naturally */
+  opacity: .82;
+}
+
+/* gradient masks — all 4 edges fade into dark bg */
+.hero-mask{
+  position:absolute;inset:0;z-index:1;
+  /* left-to-right fade (strongest — blends text area) */
+  background:linear-gradient(
+    to right,
+    #090c18 0%,
+    #090c18 22%,
+    rgba(9,12,24,.97) 30%,
+    rgba(9,12,24,.88) 40%,
+    rgba(9,12,24,.55) 54%,
+    rgba(9,12,24,.18) 70%,
+    rgba(9,12,24,.04) 85%,
+    transparent 100%
+  );
+}
+/* top fade */
+.hero-mask::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(
+    to bottom,
+    #090c18 0%,
+    rgba(9,12,24,.7) 8%,
+    transparent 22%
+  );
+}
+/* bottom + right edge fades */
+.hero-mask::after{
+  content:'';position:absolute;inset:0;
+  background:
+    linear-gradient(to top,    #090c18 0%, rgba(9,12,24,.8) 10%, transparent 28%),
+    linear-gradient(to left,   #090c18 0%, rgba(9,12,24,.6) 5%,  transparent 18%);
+}
+
+/* hero text */
+.hero-content{
+  position:relative;z-index:2;
+  padding:0 4%;
+  max-width:580px;
+}
+.hero-eyebrow{
+  display:flex;align-items:center;gap:1rem;
+  margin-bottom:1.4rem;
+  opacity:0;animation:fu .6s .1s forwards;
+}
+.hero-eyebrow-txt{font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#fff;white-space:nowrap;}
+.hero-eyebrow-line{flex:1;height:1px;background:rgba(255,255,255,.25);max-width:140px;}
+h1.hero-h1{
+  font-size:clamp(2.2rem,4.5vw,4rem);
+  font-weight:900;line-height:1.06;letter-spacing:-.025em;
+  margin-bottom:1.6rem;
+  opacity:0;animation:fu .8s .25s forwards;
+}
+/* checklist */
+.checks{list-style:none;display:flex;flex-direction:column;gap:.7rem;margin-bottom:2rem;opacity:0;animation:fu .8s .45s forwards;}
+.checks li{display:flex;align-items:center;gap:.7rem;font-size:.97rem;font-weight:500;color:#ddd;}
+.chk-ico{
+  width:22px;height:22px;border-radius:50%;
+  background:#25d366;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;font-size:.65rem;font-weight:900;color:#fff;
+}
+/* buttons */
+.hero-btns{display:flex;gap:.8rem;flex-wrap:wrap;opacity:0;animation:fu .8s .6s forwards;}
+.btn-primary{
+  background:#00b4d4;color:#090c18;font-weight:700;font-size:.84rem;
+  letter-spacing:.04em;padding:.72rem 1.6rem;border-radius:5px;border:none;
+  display:inline-flex;align-items:center;gap:.45rem;
+  box-shadow:0 4px 22px rgba(0,180,212,.35);
+  transition:filter .2s,transform .2s;
+}
+.btn-primary:hover{filter:brightness(1.1);transform:translateY(-2px);}
+.btn-outline{
+  background:transparent;color:#fff;font-weight:600;font-size:.84rem;
+  letter-spacing:.04em;padding:.72rem 1.6rem;border-radius:5px;
+  border:1.5px solid rgba(255,255,255,.22);
+  display:inline-flex;align-items:center;gap:.45rem;
+  transition:border-color .2s,color .2s;
+}
+.btn-outline:hover{border-color:#00b4d4;color:#00b4d4;}
+
+/* scroll cue */
+.scroll-cue{position:absolute;bottom:1.8rem;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:.3rem;opacity:0;animation:fu .8s 1.1s forwards;}
+.scroll-cue span{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:#555;}
+.scroll-bar{width:1px;height:38px;background:linear-gradient(#00b4d4,transparent);animation:sb 2s ease-in-out infinite;}
+@keyframes sb{0%,100%{opacity:.3;}50%{opacity:1;}}
+
+/* keyframes */
+@keyframes fu{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
+
+/* ─── TICKER ─── */
+.ticker{overflow:hidden;padding:.8rem 0;background:#060910;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);}
+.tick-t{display:flex;width:max-content;animation:tick 30s linear infinite;}
+.tick-i{white-space:nowrap;padding:0 2rem;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:#555;}
+.tick-s{color:#00b4d4;margin-right:2rem;}
+@keyframes tick{to{transform:translateX(-50%);}}
+
+/* ─── SECTION ─── */
+.sec{padding:5.5rem 4%;}
+.sec.alt{background:#070a15;}
+.sec-lbl{font-size:.63rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#00b4d4;margin-bottom:.7rem;}
+.sec-h{font-size:clamp(1.85rem,3.2vw,2.65rem);font-weight:800;letter-spacing:-.025em;line-height:1.1;}
+.sec-center{text-align:center;margin-bottom:3.5rem;}
+
+/* ─── PRODUCTS ─── */
+.prod-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.2rem;max-width:1160px;margin:0 auto;}
+
+.pcard{
+  background:#0e1122;
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:10px;overflow:hidden;
+  transition:transform .4s cubic-bezier(.16,1,.3,1),border-color .3s,box-shadow .4s;
+}
+.pcard:hover{
+  transform:translateY(-10px);
+  border-color:rgba(0,180,212,.35);
+  box-shadow:0 22px 55px rgba(0,0,0,.55),0 0 40px rgba(0,180,212,.06);
+}
+/* top: title + cta */
+.pcard-top{padding:1.3rem 1.4rem 1rem;border-bottom:1px solid rgba(255,255,255,.06);}
+.pcard-brand{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:#00b4d4;margin-bottom:.22rem;}
+.pcard-name{font-size:1.08rem;font-weight:700;margin-bottom:.2rem;}
+.pcard-sub{font-size:.76rem;color:#555;margin-bottom:.9rem;}
+.pcard-wa{
+  display:inline-flex;align-items:center;gap:.38rem;
+  background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.25);
+  color:#25d366;font-size:.7rem;font-weight:700;letter-spacing:.06em;
+  text-transform:uppercase;padding:.46rem .95rem;border-radius:4px;
+  transition:background .2s,transform .15s;
+}
+.pcard-wa:hover{background:rgba(37,211,102,.18);transform:translateY(-1px);}
+.pcard-wa svg{width:13px;height:13px;flex-shrink:0;}
+/* image */
+.pcard-img{
+  background:#0e1122;
+  display:flex;align-items:center;justify-content:center;
+  padding:1.6rem 1rem;min-height:250px;
+  position:relative;overflow:hidden;
+  border-radius:0;
+}
+.pcard-img::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:40px;
+  background:linear-gradient(transparent,rgba(0,0,0,.08));
+  pointer-events:none;z-index:2;
+}
+.pcard-img img{
+  height:210px;width:auto;max-width:90%;object-fit:contain;
+  position:relative;z-index:1;
+  transform:scale(.96);
+  filter:drop-shadow(0 8px 18px rgba(0,0,0,.18));
+  transition:transform .45s cubic-bezier(.16,1,.3,1),filter .45s;
+}
+.pcard:hover .pcard-img img{
+  transform:scale(1.07) translateY(-6px);
+  filter:drop-shadow(0 16px 30px rgba(0,0,0,.25));
+}
+.pcard-size{
+  position:absolute;top:10px;right:10px;z-index:3;
+  background:rgba(9,12,24,.75);backdrop-filter:blur(6px);
+  border:1px solid rgba(255,255,255,.15);
+  color:#fff;font-size:.6rem;letter-spacing:.1em;
+  text-transform:uppercase;padding:.2rem .5rem;border-radius:3px;
+}
+
+/* ─── ABOUT ─── */
+.about-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
+.about-t p{color:#888;font-size:.91rem;line-height:1.84;margin-bottom:.9rem;}
+.about-t h3{font-size:1.05rem;font-weight:700;color:#fff;margin:1rem 0 .4rem;}
+.feat-list{display:flex;flex-direction:column;gap:.85rem;margin-top:1.8rem;}
+.fi{display:flex;align-items:center;gap:.85rem;padding:1rem 1.1rem;background:#0e1122;border:1px solid rgba(255,255,255,.07);border-radius:8px;transition:border-color .25s,transform .25s;}
+.fi:hover{border-color:rgba(0,180,212,.28);transform:translateX(4px);}
+.fi-ico{width:36px;height:36px;background:rgba(0,180,212,.12);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+.fi-t{font-weight:700;font-size:.87rem;}
+.fi-d{font-size:.77rem;color:#666;margin-top:.1rem;}
+/* molecule */
+.mol-col{position:relative;height:400px;}
+#molcv{position:absolute;inset:0;width:100%;height:100%;}
+
+/* ─── FAQ ─── */
+.faq-box{max-width:700px;margin:0 auto;}
+.faq-hd{text-align:center;margin-bottom:3rem;}
+.fq{border-bottom:1px solid rgba(255,255,255,.07);}
+.fq-btn{width:100%;text-align:left;background:none;border:none;color:#f0f0f5;font-size:.88rem;font-weight:600;padding:1.1rem 0;display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:color .2s;}
+.fq-btn:hover{color:#00b4d4;}
+.fq-plus{width:21px;height:21px;flex-shrink:0;border:1px solid rgba(255,255,255,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#00b4d4;font-size:.82rem;transition:transform .32s,border-color .2s;}
+.fq.open .fq-plus{transform:rotate(45deg);border-color:#00b4d4;}
+.fq-ans{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.16,1,.3,1),padding .35s;color:#777;font-size:.85rem;line-height:1.82;}
+.fq.open .fq-ans{max-height:280px;padding-bottom:1.1rem;}
+
+/* ─── CTA ─── */
+.cta-sec{
+  padding:5.5rem 4%;text-align:center;
+  background:linear-gradient(180deg,#0b1016 0%,#090c18 100%);
+  border-top:1px solid rgba(0,180,212,.15);
+  border-bottom:1px solid rgba(0,180,212,.1);
+}
+.cta-sec h2{font-size:clamp(1.9rem,3.5vw,2.75rem);font-weight:900;margin-bottom:.8rem;}
+.cta-sec p{color:#777;max-width:470px;margin:0 auto 2rem;line-height:1.75;font-size:.91rem;}
+.cta-row{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;}
+
+/* ─── FOOTER ─── */
+footer{padding:3.5rem 4% 1.8rem;background:#060910;border-top:1px solid rgba(255,255,255,.06);}
+.foot-grid{display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:3rem;margin-bottom:2.5rem;}
+.foot-logo{display:flex;align-items:center;gap:.5rem;margin-bottom:.65rem;}
+.foot-logo svg{width:22px;height:22px;}
+.foot-logo span{font-size:1rem;font-weight:800;color:#00b4d4;}
+.foot-desc{color:#555;font-size:.78rem;line-height:1.7;max-width:220px;}
+.foot-col h4{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:#00b4d4;margin-bottom:.85rem;}
+.foot-col ul{list-style:none;display:flex;flex-direction:column;gap:.48rem;}
+.foot-col a{color:#555;font-size:.78rem;transition:color .18s;}
+.foot-col a:hover{color:#fff;}
+.foot-bot{padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.06);display:flex;justify-content:space-between;align-items:center;color:#444;font-size:.72rem;}
+
+/* ─── FLOATING WA BUTTON ─── */
+.wa-float{
+  position:fixed;bottom:1.6rem;left:1.6rem;z-index:500;
+  width:52px;height:52px;border-radius:50%;
+  background:#25d366;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 18px rgba(37,211,102,.5);
+  transition:transform .2s,box-shadow .2s;
+}
+.wa-float:hover{transform:scale(1.1);box-shadow:0 6px 26px rgba(37,211,102,.65);}
+.wa-float svg{width:28px;height:28px;fill:#fff;}
+
+/* ─── EW2 IMAGE GALLERY ─── */
+.ew2-gallery { position:relative; overflow:hidden; padding:0; min-height:260px; }
+.gallery-track {
+  display:flex; transition:transform .45s cubic-bezier(.16,1,.3,1);
+  height:260px;
+}
+.gallery-track img {
+  min-width:100%; width:100%; height:100%;
+  object-fit:contain;
+  padding:1.2rem .8rem;
+  filter:drop-shadow(0 8px 16px rgba(0,0,0,.18));
+  flex-shrink:0;
+  transition:filter .3s;
+}
+.pcard:hover .gallery-track img{filter:drop-shadow(0 14px 24px rgba(0,0,0,.25));}
+/* dots */
+.gallery-dots {
+  position:absolute; bottom:8px; left:50%; transform:translateX(-50%);
+  display:flex; gap:5px; z-index:3;
+}
+.gdot {
+  width:6px; height:6px; border-radius:50%;
+  background:rgba(0,0,0,.2); border:none;
+  transition:background .2s, transform .2s;
+}
+.gdot.active { background:#00b4d4; transform:scale(1.3); }
+/* arrows */
+.garrow {
+  position:absolute; top:50%; transform:translateY(-50%);
+  background:rgba(0,0,0,.55); border:1px solid rgba(255,255,255,.12);
+  color:#fff; width:28px; height:28px; border-radius:50%;
+  font-size:1.1rem; line-height:1; z-index:3;
+  opacity:0; transition:opacity .2s, background .2s;
+  display:flex; align-items:center; justify-content:center;
+}
+.ew2-gallery:hover .garrow { opacity:1; }
+.garrow:hover { background:rgba(0,180,212,.6); }
+.garrow-l { left:8px; }
+.garrow-r { right:8px; }
+
+/* ─── SCROLL REVEAL ─── */
+.rv{opacity:0;transform:translateY(20px);transition:opacity .75s cubic-bezier(.16,1,.3,1),transform .75s cubic-bezier(.16,1,.3,1);}
+.rv.show{opacity:1;transform:none;}
+.rv.d1{transition-delay:.1s;}.rv.d2{transition-delay:.2s;}.rv.d3{transition-delay:.3s;}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:860px){
+  .nav-links{display:none;}
+  .nav{padding:0 4%;}
+  .hero{min-height:85vh;}
+  .hero-bg-img{width:100%;opacity:.25;}
+  .hero-mask{background:linear-gradient(to right,#090c18 0%,rgba(9,12,24,.9) 55%,rgba(9,12,24,.5) 100%);}
+  .hero-content{max-width:100%;}
+  .about-grid{grid-template-columns:1fr;}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:2rem;}
+}
+/* Hide injected platform branding */
+a[href*="kimi.com/agent"],
+[class*="kimi-agent"],
+[id*="kimi-agent"],
+.kimi-agent{display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important;}
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div id="cur"></div>
+<div id="ring"></div>
+
+<!-- FLOATING WHATSAPP -->
+<a class="wa-float" href="https://wa.me/447840875481" target="_blank" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <a href="https://wa.me/447840875481" target="_blank" data-i="topbar">
+    Sie sind Großkunde? Schreiben Sie uns auf WhatsApp!
+  </a>
+</div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-logo">
+    <!-- gas canister SVG icon -->
+    <svg viewBox="0 0 40 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="14" y="0" width="12" height="8" rx="3" fill="#00b4d4"/>
+      <rect x="16" y="7" width="8" height="4" rx="1" fill="#00b4d4"/>
+      <rect x="4" y="11" width="32" height="58" rx="8" fill="#00b4d4"/>
+      <rect x="8" y="64" width="24" height="8" rx="4" fill="#0099b8"/>
+      <rect x="12" y="30" width="16" height="18" rx="3" fill="rgba(0,0,0,0.25)"/>
+    </svg>
+    <div class="nav-logo-txt">Lachgas<span>Deutschland</span></div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#hero" class="active" data-i="n_home">Home</a></li>
+    <li><a href="#products" data-i="n_catalog">Katalog</a></li>
+    <li><a href="#about" data-i="n_about">Über uns</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-row">
+      <div class="lang-select-wrap">
+        <select class="lang-select" id="langSelect" onchange="go(this.value);sessionStorage.setItem('lang',this.value)">
+          <option value="de">🇩🇪 Deutsch</option>
+          <option value="en">🇬🇧 English</option>
+          <option value="fr">🇫🇷 Français</option>
+          <option value="nl">🇳🇱 Nederlands</option>
+          <option value="es">🇪🇸 Español</option>
+          <option value="it">🇮🇹 Italiano</option>
+          <option value="pl">🇵🇱 Polski</option>
+          <option value="tr">🇹🇷 Türkçe</option>
+          <option value="ar">🇸🇦 العربية</option>
+        </select>
+        <svg class="lang-caret" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+    </div>
+    <button class="wa-btn" onclick="window.open('https://wa.me/447840875481','_blank')">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      <span data-i="n_cta">Preis anfragen</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero" id="hero">
+  <!-- background group image fills right side -->
+  <div class="hero-bg-img">
+    <img
+      src="images/hero-bg.jpg"
+      alt="Exotic Whip Lachgas"
+      onerror="this.src='images/hero-bg.jpg'"
+    >
+  </div>
+  <!-- gradient overlay -->
+  <div class="hero-mask"></div>
+
+  <!-- text content -->
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-txt" data-i="h_tag">Lachgas Großhandel</span>
+      <div class="hero-eyebrow-line"></div>
+    </div>
+    <h1 class="hero-h1" data-i="h_h1">Lachgas Deutschland Großhandel</h1>
+    <ul class="checks" id="checks"></ul>
+    <div class="hero-btns">
+      <a href="#products" class="btn-primary" data-i="h_b1">Unser Katalog</a>
+      <a href="https://wa.me/447840875481" target="_blank" class="btn-outline" data-i="h_b2">Preis anfragen</a>
+    </div>
+  </div>
+
+  <div class="scroll-cue">
+    <span data-i="scroll">Scroll</span>
+    <div class="scroll-bar"></div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker"><div class="tick-t" id="tick"></div></div>
+
+<!-- ═══ PRODUCTS ═══ -->
+<section class="sec alt" id="products">
+  <div class="sec-center rv">
+    <div class="sec-lbl" data-i="p_lbl">Sortiment</div>
+    <h2 class="sec-h" data-i="p_h">Unsere Produkte</h2>
+  </div>
+  <div class="prod-grid">
+
+    <div class="pcard rv d1" id="ew2card">
+      <div class="pcard-top">
+        <div class="pcard-brand">Exotic Whip</div>
+        <div class="pcard-name" data-i="ew2">Exotic Whip 2kg</div>
+        <div class="pcard-sub" data-i="wa_sub">Preisanfrage per WhatsApp</div>
+        <a href="https://wa.me/447840875481" target="_blank" class="pcard-wa">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          <span data-i="wa_btn">WhatsApp</span>
+        </a>
+      </div>
+      <!-- image gallery slider -->
+      <div class="pcard-img ew2-gallery">
+        <span class="pcard-size">2 kg</span>
+        <div class="gallery-track" id="ew2track">
+          <img src="images/ew2kg-1.jpg" alt="Exotic Whip 2kg – Front">
+          <img src="images/ew2kg-2.jpg" alt="Exotic Whip 2kg – Strap front">
+          <img src="images/ew2kg-3.jpg" alt="Exotic Whip 2kg – Strap side">
+        </div>
+        <!-- dot indicators -->
+        <div class="gallery-dots" id="ew2dots">
+          <span class="gdot active"></span>
+          <span class="gdot"></span>
+          <span class="gdot"></span>
+        </div>
+        <!-- arrows -->
+        <button class="garrow garrow-l" onclick="ewSlide(-1)">&#8249;</button>
+        <button class="garrow garrow-r" onclick="ewSlide(1)">&#8250;</button>
+      </div>
+    </div>
+
+    <div class="pcard rv d2">
+      <div class="pcard-top">
+        <div class="pcard-brand">Exotic Whip</div>
+        <div class="pcard-name" data-i="ew670">Exotic Whip 670g</div>
+        <div class="pcard-sub" data-i="wa_sub">Preisanfrage per WhatsApp</div>
+        <a href="https://wa.me/447840875481" target="_blank" class="pcard-wa">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          <span data-i="wa_btn">WhatsApp</span>
+        </a>
+      </div>
+      <div class="pcard-img ew2-gallery">
+        <span class="pcard-size">670 g</span>
+        <div class="gallery-track" id="ew670track">
+          <img src="images/ew670-1.jpg" alt="Exotic Whip 670g – New Design">
+          <img src="images/ew670-2.jpg"       alt="Exotic Whip 670g – Clean">
+          <img src="images/ew670-3.jpg"          alt="Exotic Whip 670g – Strap front">
+        </div>
+        <div class="gallery-dots" id="ew670dots">
+          <span class="gdot active"></span>
+          <span class="gdot"></span>
+          <span class="gdot"></span>
+        </div>
+        <button class="garrow garrow-l" onclick="ew670Slide(-1)">&#8249;</button>
+        <button class="garrow garrow-r" onclick="ew670Slide(1)">&#8250;</button>
+      </div>
+    </div>
+
+    <!-- Rotass 2kg -->
+    <div class="pcard rv d1">
+      <div class="pcard-top">
+        <div class="pcard-brand">Rotass</div>
+        <div class="pcard-name">Rotass 2kg</div>
+        <div class="pcard-sub" data-i="wa_sub">Preisanfrage per WhatsApp</div>
+        <a href="https://wa.me/447840875481" target="_blank" class="pcard-wa">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          <span data-i="wa_btn">WhatsApp</span>
+        </a>
+      </div>
+      <div class="pcard-img ew2-gallery">
+        <span class="pcard-size">2 kg</span>
+        <div class="gallery-track" id="r2kgtrack">
+          <img src="images/rotass2kg.jpg" alt="Rotass 2kg">
+          <img src="images/embedded_0.png" alt="Rotass 2kg - Single">
+          <img src="images/embedded_1.png" alt="Rotass 2kg - With Box">
+        </div>
+        <div class="gallery-dots" id="r2kgdots">
+          <span class="gdot active"></span><span class="gdot"></span><span class="gdot"></span>
+        </div>
+        <button class="garrow garrow-l" onclick="r2kgSlide(-1)">&#8249;</button>
+        <button class="garrow garrow-r" onclick="r2kgSlide(1)">&#8250;</button>
+      </div>
+    </div>
+
+    <!-- Rotass 640g -->
+    <div class="pcard rv d2">
+      <div class="pcard-top">
+        <div class="pcard-brand">Rotass</div>
+        <div class="pcard-name">Rotass 680g</div>
+        <div class="pcard-sub" data-i="wa_sub">Preisanfrage per WhatsApp</div>
+        <a href="https://wa.me/447840875481" target="_blank" class="pcard-wa">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          <span data-i="wa_btn">WhatsApp</span>
+        </a>
+      </div>
+      <div class="pcard-img ew2-gallery">
+        <span class="pcard-size">680 g</span>
+        <div class="gallery-track" id="r640track">
+          <img src="images/rotass640.jpg" alt="Rotass 680g">
+          <img src="images/embedded_2.png" alt="Rotass 680g – 6 Pack">
+          <img src="images/embedded_3.png" alt="Rotass 680g – 6 Pack Alternate">
+        </div>
+        <div class="gallery-dots" id="r640dots">
+          <span class="gdot active"></span><span class="gdot"></span><span class="gdot"></span>
+        </div>
+        <button class="garrow garrow-l" onclick="r640Slide(-1)">&#8249;</button>
+        <button class="garrow garrow-r" onclick="r640Slide(1)">&#8250;</button>
+      </div>
+    </div>
+
+    <!-- Kiwi 2kg -->
+    <div class="pcard rv d3">
+      <div class="pcard-top">
+        <div class="pcard-brand">Kiwi</div>
+        <div class="pcard-name">Kiwi 2kg</div>
+        <div class="pcard-sub" data-i="wa_sub">Preisanfrage per WhatsApp</div>
+        <a href="https://wa.me/447840875481" target="_blank" class="pcard-wa">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          <span data-i="wa_btn">WhatsApp</span>
+        </a>
+      </div>
+      <div class="pcard-img ew2-gallery">
+        <span class="pcard-size">2 kg</span>
+        <div class="gallery-track" id="kiwi2track">
+          <img src="images/embedded_4.png" alt="Kiwi 2kg - Pack">
+          <img src="images/embedded_5.png" alt="Kiwi 2kg - Box">
+          <img src="images/embedded_6.png" alt="Kiwi 2kg - Single">
+        </div>
+        <div class="gallery-dots" id="kiwi2dots">
+          <span class="gdot active"></span><span class="gdot"></span><span class="gdot"></span>
+        </div>
+        <button class="garrow garrow-l" onclick="kiwi2Slide(-1)">&#8249;</button>
+        <button class="garrow garrow-r" onclick="kiwi2Slide(1)">&#8250;</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ABOUT ═══ -->
+<section class="sec" id="about">
+  <div class="about-grid">
+    <div class="about-t">
+      <div class="sec-lbl rv" data-i="a_lbl">Über uns</div>
+      <h2 class="sec-h rv" data-i="a_h">Lachgas Großhandel aus Deutschland</h2>
+      <p class="rv" data-i="a_p1">Sie sind auf der Suche nach Lachgasflaschen? Wir sind der preiswerte Anbieter von reinem Lachgas in ganz Deutschland. Wir sind 24/7 für alle Ihre Bestellungen geöffnet. Unsere Flaschen reichen von 640 Gramm bis zu 15 kg.</p>
+      <p class="rv" data-i="a_p2">Unser Lachgas ist von höchster Qualität und wird mit allen notwendigen Zertifikaten und Sicherheitshinweisen geliefert.</p>
+      <div class="feat-list">
+        <div class="fi rv d1"><div class="fi-ico">💰</div><div><div class="fi-t" data-i="f1t">Gute Preise</div><div class="fi-d" data-i="f1d">Kompetitive Großhandelspreise für alle Mengen.</div></div></div>
+        <div class="fi rv d2"><div class="fi-ico">🚚</div><div><div class="fi-t" data-i="f2t">Schnelle Lieferung</div><div class="fi-d" data-i="f2d">24–48h Lieferung deutschlandweit per DHL oder Spedition.</div></div></div>
+        <div class="fi rv d3"><div class="fi-ico">⚗️</div><div><div class="fi-t" data-i="f3t">Hochqualitatives Lachgas</div><div class="fi-d" data-i="f3d">99,9% reines N₂O mit offiziellen Qualitätszertifikaten.</div></div></div>
+      </div>
+    </div>
+    <div class="mol-col rv"><canvas id="molcv"></canvas></div>
+  </div>
+</section>
+
+<!-- ═══ FAQ ═══ -->
+<section class="sec alt" id="faq">
+  <div class="faq-box">
+    <div class="faq-hd">
+      <div class="sec-lbl rv">FAQ</div>
+      <h2 class="sec-h rv" data-i="faq_h">Häufig gestellte Fragen</h2>
+    </div>
+    <div id="faqlist"></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-sec">
+  <div class="sec-lbl rv" data-i="cta_lbl">24/7 verfügbar</div>
+  <h2 class="rv" data-i="cta_h">Bereit zu bestellen?</h2>
+  <p class="rv" data-i="cta_p">Kontaktieren Sie uns direkt per WhatsApp für eine individuelle Preisanfrage.</p>
+  <div class="cta-row rv">
+    <a href="https://wa.me/447840875481" target="_blank" class="btn-primary" data-i="cta_btn">WhatsApp schreiben</a>
+    <a href="tel:+447840875481" class="btn-outline">+44 7840 875 481</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-grid">
+    <div>
+      <div class="foot-logo">
+        <svg viewBox="0 0 40 80" fill="none"><rect x="14" y="0" width="12" height="8" rx="3" fill="#00b4d4"/><rect x="16" y="7" width="8" height="4" rx="1" fill="#00b4d4"/><rect x="4" y="11" width="32" height="58" rx="8" fill="#00b4d4"/><rect x="8" y="64" width="24" height="8" rx="4" fill="#0099b8"/></svg>
+        <span>N2O Deutschland</span>
+      </div>
+      <p class="foot-desc" data-i="ft_d">Premium N2O Großhandel — Exotic Whip & FastGas zu kompetitiven Preisen.</p>
+    </div>
+    <div class="foot-col">
+      <h4 data-i="ft_nav">Links</h4>
+      <ul>
+        <li><a href="#hero" data-i="n_home">Home</a></li>
+        <li><a href="#products" data-i="n_catalog">Katalog</a></li>
+        <li><a href="#about" data-i="n_about">Über uns</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4 data-i="ft_c">Kontakt</h4>
+      <ul>
+        <li><a href="https://wa.me/447840875481" target="_blank">WhatsApp</a></li>
+        <li><a href="tel:+447840875481" data-i="ft_call">Anrufen</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4 data-i="ft_a">Adresse</h4>
+      <ul>
+        <li><a>Auf dem Bock 22</a></li>
+        <li><a>47669 Wachtendonk</a></li>
+        <li><a>Deutschland</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bot">
+    <span>Copyright © 2025 N2O Deutschland</span>
+    <span data-i="ft_r">Alle Rechte vorbehalten</span>
+  </div>
+</footer>
+
+<script>
+/* ═══ TRANSLATIONS ═══ */
+const TR = {
+  de:{
+    topbar:'Sie sind Großkunde? Schreiben Sie uns auf WhatsApp!',
+    n_home:'Home',n_catalog:'Katalog',n_about:'Über uns',n_cta:'Preis anfragen',
+    h_tag:'Lachgas Großhandel',h_h1:'Lachgas Deutschland Großhandel',
+    checks:['Kompetitive Preise','Qualitätsmarken','Deutschlandweite Lieferung'],
+    h_b1:'Unser Katalog',h_b2:'Preis anfragen',scroll:'Scrollen',
+    p_lbl:'Sortiment',p_h:'Unsere Produkte',
+    ew2:'Exotic Whip 2kg',ew670:'Exotic Whip 670g',fg2:'FastGas 2kg',fg670:'FastGas 670g',
+    wa_sub:'Preisanfrage per WhatsApp',wa_btn:'WhatsApp',
+    a_lbl:'Über uns',a_h:'Lachgas Großhandel aus Deutschland',
+    a_p1:'Sie sind auf der Suche nach Lachgasflaschen? Wir sind der preiswerte Anbieter von reinem Lachgas in ganz Deutschland. Wir sind 24/7 für alle Ihre Bestellungen geöffnet.',
+    a_p2:'Unser Lachgas ist von höchster Qualität und wird mit allen notwendigen Zertifikaten und Sicherheitshinweisen geliefert.',
+    f1t:'Gute Preise',f1d:'Kompetitive Großhandelspreise für alle Mengen.',
+    f2t:'Schnelle Lieferung',f2d:'24–48h Lieferung deutschlandweit.',
+    f3t:'Hochqualitatives Lachgas',f3d:'99,9% reines N₂O mit offiziellen Zertifikaten.',
+    faq_h:'Häufig gestellte Fragen',
+    faqs:[
+      ['Welche Qualität hat Ihr Lachgas?','Unser Lachgas ist von pharmazeutischer Qualität und entspricht den Anforderungen des Europäischen Arzneibuchs. Jede Lieferung kommt mit einem offiziellen Zertifikat.'],
+      ['Wie lange dauert die Lieferung?','Kleine Bestellungen: 2–4 Werktage per DHL. Große Bestellungen: 4–7 Werktage per Spedition. Kostenlose Abholung in Wachtendonk.'],
+      ['Welche Zahlungsmethoden akzeptieren Sie?','Banküberweisung, Debitkarte und Barzahlung. Bei regelmäßigen Bestellungen auch Zahlung per Rechnung möglich.'],
+      ['Wie ist das Rückgaberecht?','Bei beschädigten oder defekten Produkten bieten wir Rückgabe gegen Ersatz oder Rückerstattung an.'],
+      ['Liefern Sie auch ins Ausland?','Aktuell nur innerhalb Deutschlands. Für internationale Bestellungen bitte per WhatsApp kontaktieren.']
+    ],
+    cta_lbl:'24/7 verfügbar',cta_h:'Bereit zu bestellen?',
+    cta_p:'Kontaktieren Sie uns direkt per WhatsApp für eine individuelle Preisanfrage.',
+    cta_btn:'WhatsApp schreiben',
+    ft_d:'Premium N2O Großhandel — Exotic Whip & FastGas zu kompetitiven Preisen.',
+    ft_nav:'Links',ft_c:'Kontakt',ft_a:'Adresse',ft_call:'Anrufen',ft_r:'Alle Rechte vorbehalten',
+    ticker:['Exotic Whip 2kg','FastGas 670g','99,9% Reinheit','Zertifiziert','Schnelle Lieferung','Großhandel','Exotic Whip 670g','FastGas 2kg','N2O Qualität']
+  },
+  en:{
+    topbar:'Wholesale customer? Write to us on WhatsApp!',
+    n_home:'Home',n_catalog:'Catalogue',n_about:'About us',n_cta:'Get Quote',
+    h_tag:'N2O Wholesale',h_h1:'N2O Deutschland Wholesale',
+    checks:['Competitive Prices','Quality Brands','Nationwide Delivery'],
+    h_b1:'Our Catalogue',h_b2:'Request Price',scroll:'Scroll',
+    p_lbl:'Our Range',p_h:'Our Products',
+    ew2:'Exotic Whip 2kg',ew670:'Exotic Whip 670g',fg2:'FastGas 2kg',fg670:'FastGas 670g',
+    wa_sub:'Price inquiry via WhatsApp',wa_btn:'WhatsApp',
+    a_lbl:'About us',a_h:'N2O Wholesale from Germany',
+    a_p1:'Looking for N2O canisters? We are the affordable supplier of pure nitrous oxide throughout Germany. Available 24/7 for all your orders.',
+    a_p2:'Our N2O is of the highest quality and delivered with all necessary certificates and safety instructions.',
+    f1t:'Good Prices',f1d:'Competitive wholesale prices for all quantities.',
+    f2t:'Fast Delivery',f2d:'24–48h delivery nationwide via DHL or freight.',
+    f3t:'High Quality N2O',f3d:'99.9% pure N₂O with official quality certificates.',
+    faq_h:'Frequently Asked Questions',
+    faqs:[
+      ['What quality is your N2O?','Our N2O is pharmaceutical grade and meets European Pharmacopoeia standards. Every delivery includes an official certificate.'],
+      ['How long does delivery take?','Small orders: 2–4 working days via DHL. Large orders: 4–7 working days via freight. Free pickup in Wachtendonk.'],
+      ['What payment methods do you accept?','Bank transfer, debit card and cash. Invoice payment also available for regular customers.'],
+      ['What is your return policy?','For damaged or defective products we offer return for replacement or refund.'],
+      ['Do you deliver abroad?','Currently within Germany only. For international orders please contact us via WhatsApp.']
+    ],
+    cta_lbl:'Available 24/7',cta_h:'Ready to order?',
+    cta_p:'Contact us directly via WhatsApp for a custom price quote.',
+    cta_btn:'Write on WhatsApp',
+    ft_d:'Premium N2O wholesale — Exotic Whip & FastGas at competitive prices.',
+    ft_nav:'Links',ft_c:'Contact',ft_a:'Address',ft_call:'Call us',ft_r:'All rights reserved',
+    ticker:['Exotic Whip 2kg','FastGas 670g','99.9% Purity','Certified','Fast Delivery','Wholesale','Exotic Whip 670g','FastGas 2kg','N2O Quality']
+  },
+  fr:{
+    topbar:'Client grossiste ? Écrivez-nous sur WhatsApp !',
+    n_home:'Accueil',n_catalog:'Catalogue',n_about:'À propos',n_cta:'Demander un prix',
+    h_tag:'Grossiste N2O',h_h1:'N2O Deutschland Grossiste',
+    checks:['Prix compétitifs','Marques de qualité','Livraison nationale'],
+    h_b1:'Notre catalogue',h_b2:'Demander un prix',scroll:'Défiler',
+    p_lbl:'Notre gamme',p_h:'Nos Produits',
+    ew2:'Exotic Whip 2kg',ew670:'Exotic Whip 670g',fg2:'FastGas 2kg',fg670:'FastGas 670g',
+    wa_sub:'Demande de prix par WhatsApp',wa_btn:'WhatsApp',
+    a_lbl:'À propos',a_h:'Grossiste N2O depuis l\'Allemagne',
+    a_p1:'Vous cherchez des bouteilles de N2O ? Nous sommes le fournisseur abordable de protoxyde d\'azote pur dans toute l\'Allemagne. Disponibles 24h/24.',
+    a_p2:'Notre N2O est de la plus haute qualité et livré avec tous les certificats nécessaires.',
+    f1t:'Bons prix',f1d:'Prix de gros compétitifs pour toutes les quantités.',
+    f2t:'Livraison rapide',f2d:'Livraison en 24–48h sur tout le territoire.',
+    f3t:'N2O haute qualité',f3d:'N2O pur à 99,9% avec certificats officiels.',
+    faq_h:'Questions fréquentes',
+    faqs:[
+      ['Quelle est la qualité de votre N2O ?','Notre N2O est de qualité pharmaceutique et répond aux normes de la Pharmacopée européenne.'],
+      ['Quel est le délai de livraison ?','Petites commandes : 2–4 jours via DHL. Grandes commandes : 4–7 jours par transporteur.'],
+      ['Quels modes de paiement ?','Virement bancaire, carte de débit et espèces.'],
+      ['Politique de retour ?','Les produits endommagés peuvent être retournés pour remplacement ou remboursement.'],
+      ['Livraison à l\'étranger ?','Uniquement en Allemagne pour l\'instant.']
+    ],
+    cta_lbl:'Disponible 24h/24',cta_h:'Prêt à commander ?',
+    cta_p:'Contactez-nous via WhatsApp pour un devis personnalisé.',
+    cta_btn:'Écrire sur WhatsApp',
+    ft_d:'Grossiste N2O premium — Exotic Whip & FastGas à des prix compétitifs.',
+    ft_nav:'Liens',ft_c:'Contact',ft_a:'Adresse',ft_call:'Appeler',ft_r:'Tous droits réservés',
+    ticker:['Exotic Whip 2kg','FastGas 670g','Pureté 99,9%','Certifié','Livraison rapide','Grossiste','Exotic Whip 670g','FastGas 2kg','Qualité N2O']
+  },
+
+  nl:{
+    topbar:'Groothandelsklant? Schrijf ons op WhatsApp!',
+    n_home:'Home',n_catalog:'Catalogus',n_about:'Over ons',n_cta:'Prijs aanvragen',
+    h_tag:'N2O Groothandel',h_h1:'N2O Duitsland Groothandel',
+    checks:['Concurrerende prijzen','Kwaliteitsmerken','Landelijke levering'],
+    h_b1:'Onze catalogus',h_b2:'Prijs aanvragen',scroll:'Scrollen',
+    p_lbl:'Ons assortiment',p_h:'Onze Producten',
+    ew2:'Exotic Whip 2kg',ew670:'Exotic Whip 670g',fg2:'FastGas 2kg',fg670:'FastGas 670g',
+    wa_sub:'Prijsaanvraag via WhatsApp',wa_btn:'WhatsApp',
+    a_lbl:'Over ons',a_h:'N2O Groothandel uit Duitsland',
+    a_p1:'Op zoek naar N2O-flessen? Wij zijn de betaalbare leverancier van puur lachgas door heel Duitsland. 24/7 beschikbaar voor al uw bestellingen.',
+    a_p2:'Ons N2O is van de hoogste kwaliteit en wordt geleverd met alle benodigde certificaten en veiligheidsinstructies.',
+    f1t:'Goede prijzen',f1d:'Concurrerende groothandelsprijzen voor alle hoeveelheden.',
+    f2t:'Snelle levering',f2d:'24–48u levering door heel Nederland en Duitsland.',
+    f3t:'Hoogwaardig N2O',f3d:'99,9% puur N₂O met officiële kwaliteitscertificaten.',
+    faq_h:'Veelgestelde vragen',
+    faqs:[
+      ['Wat is de kwaliteit van uw N2O?','Ons N2O is van farmaceutische kwaliteit en voldoet aan de Europese Farmacopee. Elke levering wordt vergezeld van een officieel certificaat.'],
+      ['Hoe lang duurt de levering?','Kleine bestellingen: 2–4 werkdagen via DHL. Grote bestellingen: 4–7 werkdagen per vrachtvervoer.'],
+      ['Welke betaalmethoden accepteert u?','Bankoverschrijving, debetkaart en contant geld. Bij vaste klanten ook factuurbetaling.'],
+      ['Wat is het retourbeleid?','Bij beschadigde of defecte producten bieden wij retour aan voor vervanging of terugbetaling.'],
+      ['Leveren jullie ook in het buitenland?','Momenteel alleen binnen Duitsland. Voor internationale bestellingen kunt u contact opnemen via WhatsApp.']
+    ],
+    cta_lbl:'24/7 beschikbaar',cta_h:'Klaar om te bestellen?',
+    cta_p:'Neem direct contact op via WhatsApp voor een offerte op maat.',
+    cta_btn:'WhatsApp schrijven',
+    ft_d:'Premium N2O groothandel — Exotic Whip & FastGas tegen concurrerende prijzen.',
+    ft_nav:'Links',ft_c:'Contact',ft_a:'Adres',ft_call:'Bellen',ft_r:'Alle rechten voorbehouden',
+    ticker:['Exotic Whip 2kg','FastGas 670g','99,9% Zuiverheid','Gecertificeerd','Snelle levering','Groothandel','Exotic Whip 670g','FastGas 2kg','N2O Kwaliteit']
+  },
+  es:{
+    topbar:'¿Cliente mayorista? ¡Escríbenos por WhatsApp!',
+    n_home:'Inicio',n_catalog:'Catálogo',n_about:'Nosotros',n_cta:'Solicitar precio',
+    h_tag:'Mayorista N2O',h_h1:'N2O Alemania Mayorista',
+    checks:['Precios competitivos','Marcas de calidad','Entrega nacional'],
+    h_b1:'Nuestro catálogo',h_b2:'Solicitar precio',scroll:'Desplazar',
+    p_lbl:'Nuestro catálogo',p_h:'Nuestros Productos',
+    ew2:'Exotic Whip 2kg',ew670:'Exotic Whip 670g',fg2:'FastGas 2kg',fg670:'FastGas 670g',
+    wa_sub:'Consulta de precio por WhatsApp',wa_btn:'WhatsApp',
+    a_lbl:'Nosotros',a_h:'Mayorista de N2O desde Alemania',
+    a_p1:'¿Buscas cilindros de N2O? Somos el proveedor económico de óxido nitroso puro en toda Alemania. Disponibles 24/7 para todos tus pedidos.',
+    a_p2:'Nuestro N2O es de la más alta calidad y se entrega con todos los certificados y advertencias de seguridad necesarios.',
+    f1t:'Buenos precios',f1d:'Precios mayoristas competitivos para todas las cantidades.',
+    f2t:'Entrega rápida',f2d:'Entrega en 24–48h en toda Alemania.',
+    f3t:'N2O de alta calidad',f3d:'N₂O 99,9% puro con certificados de calidad oficiales.',
+    faq_h:'Preguntas frecuentes',
+    faqs:[
+      ['¿Qué calidad tiene su N2O?','Nuestro N2O es de grado farmacéutico y cumple con los estándares de la Farmacopea Europea. Cada entrega incluye un certificado oficial.'],
+      ['¿Cuánto tarda la entrega?','Pedidos pequeños: 2–4 días laborables vía DHL. Pedidos grandes: 4–7 días laborables por transporte de carga.'],
+      ['¿Qué métodos de pago aceptan?','Transferencia bancaria, tarjeta de débito y efectivo. Pago con factura también disponible para clientes habituales.'],
+      ['¿Cuál es su política de devoluciones?','Para productos dañados o defectuosos ofrecemos devolución para reemplazo o reembolso.'],
+      ['¿Realizan envíos al extranjero?','Actualmente solo dentro de Alemania. Para pedidos internacionales, contáctenos por WhatsApp.']
+    ],
+    cta_lbl:'Disponible 24/7',cta_h:'¿Listo para pedir?',
+    cta_p:'Contáctanos directamente por WhatsApp para un presupuesto personalizado.',
+    cta_btn:'Escribir en WhatsApp',
+    ft_d:'Mayorista premium de N2O — Exotic Whip & FastGas a precios competitivos.',
+    ft_nav:'Enlaces',ft_c:'Contacto',ft_a:'Dirección',ft_call:'Llamar',ft_r:'Todos los derechos reservados',
+    ticker:['Exotic Whip 2kg','FastGas 670g','99,9% Pureza','Certificado','Entrega rápida','Mayorista','Exotic Whip 670g','FastGas 2kg','Calidad N2O']
+  },
+  it:{
+    topbar:'Cliente all\'ingrosso? Scrivici su WhatsApp!',
+    n_home:'Home',n_catalog:'Catalogo',n_about:'Chi siamo',n_cta:'Richiedi preventivo',
+    h_tag:'Ingrosso N2O',h_h1:'N2O Germania Ingrosso',
+    checks:['Prezzi competitivi','Marchi di qualità','Consegna nazionale'],
+    h_b1:'Il nostro catalogo',h_b2:'Richiedi prezzo',scroll:'Scorri',
+    p_lbl:'Il nostro assortimento',p_h:'I Nostri Prodotti',
+    ew2:'Exotic Whip 2kg',ew670:'Exotic Whip 670g',fg2:'FastGas 2kg',fg670:'FastGas 670g',
+    wa_sub:'Richiesta prezzo via WhatsApp',wa_btn:'WhatsApp',
+    a_lbl:'Chi siamo',a_h:'Ingrosso N2O dalla Germania',
+    a_p1:'Cerchi bombole di N2O? Siamo il fornitore economico di protossido di azoto puro in tutta la Germania. Disponibili 24/7 per tutti i tuoi ordini.',
+    a_p2:'Il nostro N2O è della massima qualità e viene consegnato con tutti i certificati e le avvertenze di sicurezza necessari.',
+    f1t:'Buoni prezzi',f1d:'Prezzi all\'ingrosso competitivi per tutte le quantità.',
+    f2t:'Consegna rapida',f2d:'Consegna in 24–48h in tutta la Germania.',
+    f3t:'N2O di alta qualità',f3d:'N₂O 99,9% puro con certificati di qualità ufficiali.',
+    faq_h:'Domande frequenti',
+    faqs:[
+      ['Che qualità ha il vostro N2O?','Il nostro N2O è di grado farmaceutico e soddisfa gli standard della Farmacopea Europea. Ogni consegna include un certificato ufficiale.'],
+      ['Quanto tempo richiede la consegna?','Ordini piccoli: 2–4 giorni lavorativi via DHL. Ordini grandi: 4–7 giorni lavorativi via spedizioniere.'],
+      ['Quali metodi di pagamento accettate?','Bonifico bancario, carta di debito e contanti. Pagamento con fattura disponibile per clienti abituali.'],
+      ['Qual è la vostra politica di reso?','Per prodotti danneggiati o difettosi offriamo reso per sostituzione o rimborso.'],
+      ['Consegnate anche all\'estero?','Attualmente solo in Germania. Per ordini internazionali contattateci via WhatsApp.']
+    ],
+    cta_lbl:'Disponibile 24/7',cta_h:'Pronto a ordinare?',
+    cta_p:'Contattaci direttamente via WhatsApp per un preventivo personalizzato.',
+    cta_btn:'Scrivi su WhatsApp',
+    ft_d:'Ingrosso N2O premium — Exotic Whip & FastGas a prezzi competitivi.',
+    ft_nav:'Link',ft_c:'Contatti',ft_a:'Indirizzo',ft_call:'Chiama',ft_r:'Tutti i diritti riservati',
+    ticker:['Exotic Whip 2kg','FastGas 670g','Purezza 99,9%','Certificato','Consegna rapida','Ingrosso','Exotic Whip 670g','FastGas 2kg','Qualità N2O']
+  },
+  pl:{
+    topbar:'Klient hurtowy? Napisz do nas na WhatsApp!',
+    n_home:'Strona główna',n_catalog:'Katalog',n_about:'O nas',n_cta:'Zapytaj o cenę',
+    h_tag:'Hurt N2O',h_h1:'N2O Niemcy Hurt',
+    checks:['Konkurencyjne ceny','Marki wysokiej jakości','Dostawa ogólnopolska'],
+    h_b1:'Nasz katalog',h_b2:'Zapytaj o cenę',scroll:'Przewiń',
+    p_lbl:'Nasz asortyment',p_h:'Nasze Produkty',
+    ew2:'Exotic Whip 2kg',ew670:'Exotic Whip 670g',fg2:'FastGas 2kg',fg670:'FastGas 670g',
+    wa_sub:'Zapytanie o cenę przez WhatsApp',wa_btn:'WhatsApp',
+    a_lbl:'O nas',a_h:'Hurt N2O z Niemiec',
+    a_p1:'Szukasz butli N2O? Jesteśmy przystępnym dostawcą czystego podtlenku azotu w całych Niemczech. Dostępni 24/7 dla wszystkich zamówień.',
+    a_p2:'Nasz N2O jest najwyższej jakości i dostarczany ze wszystkimi niezbędnymi certyfikatami i instrukcjami bezpieczeństwa.',
+    f1t:'Dobre ceny',f1d:'Konkurencyjne ceny hurtowe dla wszystkich ilości.',
+    f2t:'Szybka dostawa',f2d:'Dostawa 24–48h na terenie całych Niemiec.',
+    f3t:'Wysokiej jakości N2O',f3d:'99,9% czysty N₂O z oficjalnymi certyfikatami jakości.',
+    faq_h:'Często zadawane pytania',
+    faqs:[
+      ['Jaka jest jakość Waszego N2O?','Nasz N2O jest farmaceutycznej jakości i spełnia standardy Farmakopei Europejskiej. Każda dostawa zawiera oficjalny certyfikat.'],
+      ['Ile trwa dostawa?','Małe zamówienia: 2–4 dni robocze przez DHL. Duże zamówienia: 4–7 dni robocze przez spedytora.'],
+      ['Jakie metody płatności akceptujecie?','Przelew bankowy, karta debetowa i gotówka. Płatność fakturą dostępna dla stałych klientów.'],
+      ['Jaka jest polityka zwrotów?','W przypadku uszkodzonych lub wadliwych produktów oferujemy zwrot w celu wymiany lub zwrotu pieniędzy.'],
+      ['Czy dostarczacie za granicę?','Obecnie tylko na terenie Niemiec. W sprawie zamówień międzynarodowych prosimy o kontakt przez WhatsApp.']
+    ],
+    cta_lbl:'Dostępni 24/7',cta_h:'Gotowy do zamówienia?',
+    cta_p:'Skontaktuj się z nami bezpośrednio przez WhatsApp w sprawie indywidualnej wyceny.',
+    cta_btn:'Napisz na WhatsApp',
+    ft_d:'Premium hurt N2O — Exotic Whip & FastGas w konkurencyjnych cenach.',
+    ft_nav:'Linki',ft_c:'Kontakt',ft_a:'Adres',ft_call:'Zadzwoń',ft_r:'Wszelkie prawa zastrzeżone',
+    ticker:['Exotic Whip 2kg','FastGas 670g','Czystość 99,9%','Certyfikowany','Szybka dostawa','Hurt','Exotic Whip 670g','FastGas 2kg','Jakość N2O']
+  },
+  tr:{
+    topbar:'Toptan müşteri misiniz? WhatsApp\'tan yazın!',
+    n_home:'Ana Sayfa',n_catalog:'Katalog',n_about:'Hakkımızda',n_cta:'Fiyat Sor',
+    h_tag:'N2O Toptan',h_h1:'N2O Almanya Toptan',
+    checks:['Rekabetçi Fiyatlar','Kaliteli Markalar','Ülke Geneli Teslimat'],
+    h_b1:'Katalogumuz',h_b2:'Fiyat Sor',scroll:'Kaydır',
+    p_lbl:'Ürün Yelpazemiz',p_h:'Ürünlerimiz',
+    ew2:'Exotic Whip 2kg',ew670:'Exotic Whip 670g',fg2:'FastGas 2kg',fg670:'FastGas 670g',
+    wa_sub:'WhatsApp ile fiyat talebi',wa_btn:'WhatsApp',
+    a_lbl:'Hakkımızda',a_h:'Almanya\'dan N2O Toptan',
+    a_p1:'N2O tüpleri mi arıyorsunuz? Almanya genelinde saf nitröz oksit\'in uygun fiyatlı tedarikçisiyiz. Tüm siparişleriniz için 7/24 hizmetinizdeyiz.',
+    a_p2:'N2O\'muz en yüksek kalitededir ve gerekli tüm sertifikalar ve güvenlik talimatlarıyla teslim edilir.',
+    f1t:'İyi Fiyatlar',f1d:'Tüm miktarlar için rekabetçi toptan fiyatlar.',
+    f2t:'Hızlı Teslimat',f2d:'Almanya genelinde 24–48 saat teslimat.',
+    f3t:'Yüksek Kalite N2O',f3d:'Resmi kalite sertifikalarıyla %99,9 saf N₂O.',
+    faq_h:'Sıkça Sorulan Sorular',
+    faqs:[
+      ['N2O\'nuzun kalitesi nedir?','N2O\'muz farmasötik kalitededir ve Avrupa Farmakopesi standartlarını karşılar. Her teslimatla resmi sertifika verilir.'],
+      ['Teslimat ne kadar sürer?','Küçük siparişler: DHL ile 2–4 iş günü. Büyük siparişler: kargo ile 4–7 iş günü.'],
+      ['Hangi ödeme yöntemlerini kabul ediyorsunuz?','Banka havalesi, banka kartı ve nakit. Düzenli müşteriler için fatura ile ödeme de mümkündür.'],
+      ['İade politikanız nedir?','Hasarlı veya kusurlu ürünler için değişim veya iade sunuyoruz.'],
+      ['Yurt dışına teslimat yapıyor musunuz?','Şu an yalnızca Almanya içi. Uluslararası siparişler için WhatsApp\'tan iletişime geçin.']
+    ],
+    cta_lbl:'7/24 Müsait',cta_h:'Sipariş vermeye hazır mısınız?',
+    cta_p:'Özel fiyat teklifi için WhatsApp\'tan doğrudan iletişime geçin.',
+    cta_btn:'WhatsApp\'a Yaz',
+    ft_d:'Premium N2O toptan — Exotic Whip & FastGas rekabetçi fiyatlarla.',
+    ft_nav:'Bağlantılar',ft_c:'İletişim',ft_a:'Adres',ft_call:'Ara',ft_r:'Tüm hakları saklıdır',
+    ticker:['Exotic Whip 2kg','FastGas 670g','%99,9 Saflık','Sertifikalı','Hızlı Teslimat','Toptan','Exotic Whip 670g','FastGas 2kg','N2O Kalitesi']
+  },
+  ar:{
+    topbar:'عميل جملة؟ اكتب لنا على واتساب!',
+    n_home:'الرئيسية',n_catalog:'الكتالوج',n_about:'من نحن',n_cta:'طلب سعر',
+    h_tag:'بيع جملة N2O',h_h1:'N2O ألمانيا بالجملة',
+    checks:['أسعار تنافسية','علامات تجارية عالية الجودة','توصيل وطني'],
+    h_b1:'كتالوجنا',h_b2:'طلب سعر',scroll:'تمرير',
+    p_lbl:'تشكيلتنا',p_h:'منتجاتنا',
+    ew2:'Exotic Whip 2kg',ew670:'Exotic Whip 670g',fg2:'FastGas 2kg',fg670:'FastGas 670g',
+    wa_sub:'استفسار عن السعر عبر واتساب',wa_btn:'واتساب',
+    a_lbl:'من نحن',a_h:'بيع جملة N2O من ألمانيا',
+    a_p1:'تبحث عن أسطوانات N2O؟ نحن الموردون الاقتصاديون لأكسيد النيتروز النقي في جميع أنحاء ألمانيا. متاحون على مدار 24/7 لجميع طلباتكم.',
+    a_p2:'N2O لدينا ذو جودة عالية ويُسلَّم مع جميع الشهادات والتعليمات الأمنية اللازمة.',
+    f1t:'أسعار جيدة',f1d:'أسعار جملة تنافسية لجميع الكميات.',
+    f2t:'توصيل سريع',f2d:'توصيل خلال 24-48 ساعة في جميع أنحاء ألمانيا.',
+    f3t:'N2O عالي الجودة',f3d:'N₂O نقاء 99.9% مع شهادات جودة رسمية.',
+    faq_h:'الأسئلة الشائعة',
+    faqs:[
+      ['ما هي جودة N2O لديكم؟','N2O لدينا ذو جودة صيدلانية ويستوفي معايير دستور الأدوية الأوروبي. كل شحنة مرفقة بشهادة رسمية.'],
+      ['كم تستغرق مدة التوصيل؟','الطلبات الصغيرة: 2-4 أيام عمل عبر DHL. الطلبات الكبيرة: 4-7 أيام عمل عبر شركات الشحن.'],
+      ['ما طرق الدفع المقبولة؟','تحويل بنكي، بطاقة مصرفية، ونقداً. الدفع بالفاتورة متاح للعملاء المنتظمين.'],
+      ['ما هي سياسة الاسترجاع؟','للمنتجات التالفة أو المعيبة نقدم إرجاعاً للاستبدال أو الاسترداد.'],
+      ['هل تشحنون خارج ألمانيا؟','حالياً داخل ألمانيا فقط. للطلبات الدولية تواصلوا معنا عبر واتساب.']
+    ],
+    cta_lbl:'متاح 24/7',cta_h:'مستعد للطلب؟',
+    cta_p:'تواصل معنا مباشرة عبر واتساب للحصول على عرض سعر مخصص.',
+    cta_btn:'اكتب على واتساب',
+    ft_d:'بيع جملة N2O المتميز — Exotic Whip وFastGas بأسعار تنافسية.',
+    ft_nav:'روابط',ft_c:'التواصل',ft_a:'العنوان',ft_call:'اتصل',ft_r:'جميع الحقوق محفوظة',
+    ticker:['Exotic Whip 2kg','FastGas 670g','نقاء 99.9%','معتمد','توصيل سريع','جملة','Exotic Whip 670g','FastGas 2kg','جودة N2O']
+  }
+
+};
+
+const io = new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('show');}),{threshold:.1});
+
+function go(lang){
+  const t=TR[lang];
+  document.querySelectorAll('[data-i]').forEach(el=>{const v=t[el.dataset.i];if(v!==undefined)el.textContent=v;});
+  // checks
+  document.getElementById('checks').innerHTML=t.checks.map(c=>`<li><span class="chk-ico">✓</span>${c}</li>`).join('');
+  // faq
+  document.getElementById('faqlist').innerHTML=t.faqs.map(([q,a])=>`
+    <div class="fq rv"><button class="fq-btn">${q}<span class="fq-plus">+</span></button><div class="fq-ans">${a}</div></div>`).join('');
+  document.querySelectorAll('.fq-btn').forEach(b=>b.addEventListener('click',()=>{
+    const e=b.closest('.fq'),was=e.classList.contains('open');
+    document.querySelectorAll('.fq').forEach(x=>x.classList.remove('open'));
+    if(!was)e.classList.add('open');
+  }));
+  // ticker
+  const its=[...t.ticker,...t.ticker];
+  document.getElementById('tick').innerHTML=its.map(s=>`<span class="tick-i"><span class="tick-s">✦</span>${s}</span>`).join('');
+  const sel=document.getElementById('langSelect');if(sel)sel.value=lang;
+  // RTL support
+  document.documentElement.dir=lang==='ar'?'rtl':'ltr';
+  document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+}
+
+
+/* ═══ REMOVE PLATFORM BRANDING ═══ */
+const hideBrand=()=>{document.querySelectorAll('a[href*="kimi.com/agent"],.kimi-agent,[class*="kimi-agent"],[id*="kimi-agent"]').forEach(el=>el.remove());};
+hideBrand();setInterval(hideBrand,500);window.addEventListener('load',hideBrand);
+
+/* ═══ CURSOR + TRAIL ═══ */
+/* Detect touch device and hide custom cursor */
+const isTouchDevice=window.matchMedia('(pointer:coarse)').matches||'ontouchstart' in window;
+if(isTouchDevice)document.body.classList.add('touch');
+window.addEventListener('touchstart',()=>{document.body.classList.add('touch');},{once:true});
+
+const cur=document.getElementById('cur'),ring=document.getElementById('ring');
+const TN=9;const te=[];
+for(let i=0;i<TN;i++){const el=document.createElement('div');el.className='tr';const s=Math.max(1.5,5-i*.38);el.style.cssText=`width:${s}px;height:${s}px;opacity:${Math.max(.05,.38-i*.04)};`;document.body.appendChild(el);te.push(el);}
+const tp=Array.from({length:TN},()=>({x:0,y:0}));
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+document.addEventListener('mouseover',e=>document.body.classList.toggle('hl',!!e.target.closest('a,button')));
+(function loop(){
+  cur.style.left=mx+'px';cur.style.top=my+'px';
+  rx+=(mx-rx)*.1;ry+=(my-ry)*.1;
+  ring.style.left=rx+'px';ring.style.top=ry+'px';
+  tp[0].x+=(mx-tp[0].x)*.4;tp[0].y+=(my-tp[0].y)*.4;
+  for(let i=1;i<TN;i++){tp[i].x+=(tp[i-1].x-tp[i].x)*.4;tp[i].y+=(tp[i-1].y-tp[i].y)*.4;}
+  te.forEach((el,i)=>{el.style.left=tp[i].x+'px';el.style.top=tp[i].y+'px';});
+  requestAnimationFrame(loop);
+})();
+
+/* ═══ NAV + SCROLL ═══ */
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('solid',window.scrollY>40);
+});
+
+/* ═══ HERO IMAGE — subtle parallax on scroll ═══ */
+window.addEventListener('scroll',()=>{
+  const img=document.querySelector('.hero-bg-img img');
+  if(!img)return;
+  const p=Math.min(window.scrollY/window.innerHeight,1);
+  img.style.transform=`translateY(${p*60}px) scale(${1+p*.04})`;
+});
+
+/* ═══ N2O MOLECULE ═══ */
+(()=>{
+  const cv=document.getElementById('molcv');if(!cv)return;
+  const ctx=cv.getContext('2d');
+  function sz(){cv.width=cv.offsetWidth||440;cv.height=cv.offsetHeight||400;}
+  sz();window.addEventListener('resize',sz);
+  let t=0;
+  const nd=[{l:'N',c:'#00b4d4',r:24},{l:'N',c:'#00b4d4',r:24},{l:'O',c:'#0099b8',r:18}];
+  function draw(){
+    const W=cv.width,H=cv.height;ctx.clearRect(0,0,W,H);t++;
+    const cx=W/2,cy=H/2,o=90;
+    const p=nd.map((n,i)=>({x:cx+Math.cos(t*.01+i*Math.PI*.7)*o,y:cy+Math.sin(t*.008+i*Math.PI*.7)*o*.56,...n}));
+    for(let i=0;i<p.length;i++)for(let j=i+1;j<p.length;j++){
+      const a=p[i],b=p[j],g=ctx.createLinearGradient(a.x,a.y,b.x,b.y);
+      g.addColorStop(0,a.c+'60');g.addColorStop(1,b.c+'60');
+      ctx.strokeStyle=g;ctx.lineWidth=2.2;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
+    }
+    p.forEach(pt=>{
+      const pu=1+.07*Math.sin(t*.04+pt.x);
+      const g=ctx.createRadialGradient(pt.x,pt.y,0,pt.x,pt.y,pt.r*2.2*pu);
+      g.addColorStop(0,pt.c+'20');g.addColorStop(1,'transparent');
+      ctx.fillStyle=g;ctx.beginPath();ctx.arc(pt.x,pt.y,pt.r*2.2*pu,0,6.28);ctx.fill();
+      ctx.beginPath();ctx.arc(pt.x,pt.y,pt.r*pu,0,6.28);
+      ctx.fillStyle=pt.c+'15';ctx.fill();ctx.strokeStyle=pt.c;ctx.lineWidth=1.8;ctx.stroke();
+      ctx.font=`bold ${pt.r*.82}px Inter,sans-serif`;ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.fillStyle=pt.c;ctx.fillText(pt.l,pt.x,pt.y);
+    });
+    ctx.font='bold 50px Inter';ctx.textAlign='center';ctx.fillStyle='rgba(0,180,212,0.05)';
+    ctx.fillText('N₂O',cx,cy+6);
+    for(let i=0;i<18;i++){
+      const a=t*.007+i*Math.PI*2/18,r2=146+Math.sin(t*.01+i)*7;
+      ctx.beginPath();ctx.arc(cx+Math.cos(a)*r2,cy+Math.sin(a)*r2*.52,1.3,0,6.28);
+      ctx.fillStyle=`rgba(0,180,212,${.14+.28*Math.abs(Math.sin(t*.02+i))})`;ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+
+/* ═══ EW2 GALLERY SLIDER ═══ */
+let ewIdx = 0;
+const EW_TOTAL = 3;
+function ewSlide(dir) {
+  ewIdx = (ewIdx + dir + EW_TOTAL) % EW_TOTAL;
+  ewUpdateGallery();
+}
+function ewUpdateGallery() {
+  const track = document.getElementById('ew2track');
+  const dots  = document.querySelectorAll('#ew2dots .gdot');
+  if (track) track.style.transform = `translateX(-${ewIdx * 100}%)`;
+  dots.forEach((d,i) => d.classList.toggle('active', i === ewIdx));
+}
+// Auto-advance every 3.5s
+setInterval(() => ewSlide(1), 3500);
+
+/* ═══ EW670 GALLERY SLIDER ═══ */
+let ew670Idx = 0;
+const EW670_TOTAL = 3;
+function ew670Slide(dir) {
+  ew670Idx = (ew670Idx + dir + EW670_TOTAL) % EW670_TOTAL;
+  const track = document.getElementById('ew670track');
+  const dots  = document.querySelectorAll('#ew670dots .gdot');
+  if (track) track.style.transform = `translateX(-${ew670Idx * 100}%)`;
+  dots.forEach((d,i) => d.classList.toggle('active', i === ew670Idx));
+}
+setTimeout(() => setInterval(() => ew670Slide(1), 3500), 1750);
+
+/* ═══ ROTASS 2KG SLIDER ═══ */
+let r2kgIdx = 0;
+function r2kgSlide(dir) {
+  r2kgIdx = (r2kgIdx + dir + 3) % 3;
+  const t = document.getElementById('r2kgtrack');
+  const d = document.querySelectorAll('#r2kgdots .gdot');
+  if(t) t.style.transform = `translateX(-${r2kgIdx*100}%)`;
+  d.forEach((x,i) => x.classList.toggle('active', i===r2kgIdx));
+}
+setTimeout(() => setInterval(() => r2kgSlide(1), 3500), 875);
+
+/* ═══ ROTASS 640G SLIDER ═══ */
+let r640Idx = 0;
+function r640Slide(dir) {
+  r640Idx = (r640Idx + dir + 3) % 3;
+  const t = document.getElementById('r640track');
+  const d = document.querySelectorAll('#r640dots .gdot');
+  if(t) t.style.transform = `translateX(-${r640Idx*100}%)`;
+  d.forEach((x,i) => x.classList.toggle('active', i===r640Idx));
+}
+setTimeout(() => setInterval(() => r640Slide(1), 3500), 2625);
+
+/* ═══ INIT — German is always the default ═══ */
+go('de');
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+// restore saved language preference if user switched before
+const saved = sessionStorage.getItem('lang');
+if (saved && saved !== 'de') go(saved);
+/* ═══ KIWI 2KG SLIDER ═══ */
+let kiwi2Idx = 0;
+function kiwi2Slide(dir) {
+  kiwi2Idx = (kiwi2Idx + dir + 3) % 3;
+  const t = document.getElementById('kiwi2track');
+  const d = document.querySelectorAll('#kiwi2dots .gdot');
+  if(t) t.style.transform = `translateX(-${kiwi2Idx*100}%)`;
+  d.forEach((x,i) => x.classList.toggle('active', i===kiwi2Idx));
+}
+setTimeout(() => setInterval(() => kiwi2Slide(1), 3500), 3500);
+
+</script>
+</body>
+</html>
